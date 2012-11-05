@@ -32,9 +32,6 @@ class BankAccount:
         depends=DEPENDS,
         help="Setting Bank country will enable validation of the Bank code.",
         translate=False)
-    bank_number = fields.Function(fields.Char('Bank Number',
-        on_change_with=['code', 'bank_country']), 'get_bank_number',
-        searcher='search_bank_number')
 
     @classmethod
     def __setup__(cls):
@@ -45,25 +42,6 @@ class BankAccount:
         cls._error_messages.update({
             'invalid_bank_number': 'Invalid Bank number!',
         })
-
-    def on_change_with_bank_code(self):
-        return (self.bank_country or '') + (self.code or '')
-
-    def get_bank_number(self, name):
-        return (self.bank_country or '') + (self.code or '')
-
-    @classmethod
-    def search_bank_number(cls, name, clause):
-        res = []
-        value = clause[2]
-        for country, _ in BANK_COUNTRIES:
-            if isinstance(value, basestring) \
-                    and country \
-                    and value.upper().startswith(country):
-                res.append(('bank_country', '=', country))
-                value = value[len(country):]
-                break
-        res.append(('code', clause[1], value))
 
     def check_bank_number(self):
         '''
