@@ -33,14 +33,14 @@ setup(name='trytonzz_party_bank_validation',
     author='Zikzakmedia SL',
     author_email='zikzak@zikzakmedia.com',
     url='http://www.zikzakmedia.com',
-    download_url="https://bitbucket.org/zikzakmedia/trytonzz-party_bank_validation",
-    package_dir={'trytonzz.modules.party_bank_validation': '.'},
+    download_url="https://bitbucket.org/zikzakmedia/trytond-party_bank_validation",
+    package_dir={'trytond.modules.party_bank_validation': '.'},
     packages=[
-        'trytonzz.modules.party_bank_validation',
-        'trytonzz.modules.party_bank_validation.tests',
+        'trytond.modules.party_bank_validation',
+        'trytond.modules.party_bank_validation.tests',
         ],
     package_data={
-        'trytonzz.modules.party_bank_validation': info.get('xml', []) \
+        'trytond.modules.party_bank_validation': info.get('xml', []) \
             + ['tryton.cfg', 'locale/*.po'],
         },
     classifiers=[
@@ -63,9 +63,9 @@ setup(name='trytonzz_party_bank_validation',
     install_requires=requires,
     zip_safe=False,
     entry_points="""
-    [trytonzz.modules]
-    party_bank_validation = trytonzz.modules.party_bank_validation
+    [trytond.modules]
+    party_bank_validation = trytond.modules.party_bank_validation
     """,
     test_suite='tests',
-    test_loader='trytonzz.test_loader:Loader',
+    test_loader='trytond.test_loader:Loader',
 )
