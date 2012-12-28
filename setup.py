@@ -27,13 +27,13 @@ for dep in info.get('depends', []):
 requires.append('trytond >= %s.%s, < %s.%s' %
         (major_version, minor_version, major_version, minor_version + 1))
 
-setup(name='trytonzz_party_bank_validation',
+setup(name='trytonspain_party_bank_validation',
     version=info.get('version', '0.0.1'),
     description='Tryton module to validate bank codes',
     author='Zikzakmedia SL',
     author_email='zikzak@zikzakmedia.com',
     url='http://www.zikzakmedia.com',
-    download_url="https://bitbucket.org/zikzakmedia/trytond-party_bank_validation",
+    download_url="https://bitbucket.org/trytonspain/trytond-party_bank_validation",
     package_dir={'trytond.modules.party_bank_validation': '.'},
     packages=[
         'trytond.modules.party_bank_validation',
