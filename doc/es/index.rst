@@ -10,8 +10,8 @@ Este módulo se basa en una librería de validación de cuentas bancarias.
 Dependiendo de si existe o no el método de validación de un país en concreto,
 Tryton validará o no las cuentas bancarias para el mismo.
 
-Módulos que dependen
-====================
+Módulos de los que depende
+==========================
 
 Instalados
 ----------
