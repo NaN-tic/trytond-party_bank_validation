@@ -17,50 +17,46 @@ except ImportError:
     logging.getLogger('party_bank_validation').warning(
             'Unable to import banknumber. Bank code validation disabled.')
 
-STATES = {
-    'readonly': ~Eval('active', True),
-}
-DEPENDS = ['active']
 
 __all__ = ['BankAccount']
 __metaclass__ = PoolMeta
 
+
 class BankAccount:
     'Bank Account'
     __name__ = 'bank.account'
-    bank_country = fields.Selection(BANK_COUNTRIES, 'Bank Country', states=STATES,
-        depends=DEPENDS,
-        help="Setting Bank country will enable validation of the Bank code.",
-        translate=False)
+    bank_country = fields.Selection(BANK_COUNTRIES, 'Bank Country',
+        help="Setting Bank country will enable validation of the Bank code.")
 
     @classmethod
     def __setup__(cls):
         super(BankAccount, cls).__setup__()
-        cls._constraints += [
-            ('check_bank_number', 'invalid_bank_number'),
-        ]
         cls._error_messages.update({
-            'invalid_bank_number': 'Invalid Bank number!',
-        })
+                'invalid_bank_number': 'Invalid bank number in account "%s".',
+                })
+
+    @classmethod
+    def validate(cls, accounts):
+        for account in accounts:
+            account.check_bank_number()
 
     def check_bank_number(self):
         '''
         Check the Bank number depending of the country.
         '''
         if not HAS_BANKNUMBER:
-            return True
+            return
         if not self.bank_country:
-            return True
+            return
 
         code = self.code.replace(' ','')
-        if not getattr(banknumber, 'check_code_' + \
-                self.bank_country.lower())(code):
+        if (not getattr(banknumber, 'check_code_'
+                    + self.bank_country.lower())(code)):
             #Check if user doesn't have put country code in code
             if code.startswith(self.bank_country):
                 code = code[len(self.bank_country):]
                 BankAccount.write([self], {
-                    'code': code,
-                    })
+                        'code': code,
+                        })
             else:
-                return False
-        return True
+                self.raise_user_error('invalid_bank_number', (self.rec_name,))
