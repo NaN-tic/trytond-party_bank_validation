@@ -11,10 +11,3 @@ que deberá ser instalada en su servidor de Tryton.
  
 Dependiendo de si existe o no el método de validación de un país en concreto,
 Tryton validará o no las cuentas bancarias para el mismo.
-
-Dependencias
-------------
-
-* Bancos_
-
-.. _Bancos: ../party_bank/index.html
