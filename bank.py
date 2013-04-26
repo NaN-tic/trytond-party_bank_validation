@@ -4,7 +4,6 @@
 import logging
 from trytond.model import fields
 from trytond.pool import PoolMeta
-from trytond.pyson import Eval, Not, Bool
 
 HAS_BANKNUMBER = False
 BANK_COUNTRIES = [('', '')]
